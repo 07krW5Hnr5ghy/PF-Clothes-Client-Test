@@ -35,7 +35,7 @@ const LoginForm = () => {
   /* login with user and password */
   const handleLogin = async (userInfo) => {
     try {
-      const res = await axios.post(`http://localhost:3001/login`, userInfo);
+      const res = await axios.post(`${process.env.REACT_APP_API || "http://localhost:3001"}/login`, userInfo);
       sessionStorage.setItem("sessionData", JSON.stringify(res.data));
       if (res.data) {
         toastCorrect("Credenciales correctas");
@@ -52,14 +52,14 @@ const LoginForm = () => {
 
   /* loging with google */
   const redirectToGoogleSSO = async () => {
-    const googleLoginURL = `http://localhost:3001/login/google`;
+    const googleLoginURL = `${process.env.REACT_APP_API || "http://localhost:3001"}/login/google`;
     window.open(googleLoginURL, "_self");
     fetchAuthUser();
   };
 
   const fetchAuthUser = async () => {
     await axios
-      .get(`http://localhost:3001/auth/user`, { withCredentials: true })
+      .get(`${process.env.REACT_APP_API || "http://localhost:3001"}/auth/user`, { withCredentials: true })
       .then(
         (res) => {
           if (res.data) {
