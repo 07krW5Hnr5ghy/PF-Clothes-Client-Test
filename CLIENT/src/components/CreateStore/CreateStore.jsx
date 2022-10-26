@@ -6,20 +6,14 @@ import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Styles from "./CreateStore.module.css";
-<<<<<<< HEAD
-const { getSession } = require("../../utils/getSession");
-=======
 import axios from "axios";
 import { getSession } from "../../sessionUtils/jwtSession";
->>>>>>> upstream/development
 
 const CreateStore = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [info, setInfo] = useState("");
   const [us, setUs] = useState({});
-<<<<<<< HEAD
-=======
 
   const url = "http://localhost:3001/user/get";
   useEffect(() => {
@@ -51,39 +45,7 @@ const CreateStore = () => {
       }
     })();
   }, [info]);
->>>>>>> upstream/development
 
-  const url = "http://localhost:3001/user/get";
-  useEffect(() => {
-    (async () => {
-      if (!info) {
-        const data = await getSession();
-        setInfo(data);
-      }
-
-      if (info) {
-        console.log("info before request", info);
-        await axios
-          .post(
-            url,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${info.token}`,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res.data);
-            setUs(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    })();
-  }, [info]);
-  console.log(us);
   const id = us?.id;
   return (
     <div className={Styles.container1}>
@@ -111,11 +73,7 @@ const CreateStore = () => {
           };
           console.log(a);
 
-<<<<<<< HEAD
-          dispatch(createStore(id, a))
-=======
           dispatch(createStore(us.id, a))
->>>>>>> upstream/development
             .then(function (res) {
               console.log(res);
               alert("Exitoso");

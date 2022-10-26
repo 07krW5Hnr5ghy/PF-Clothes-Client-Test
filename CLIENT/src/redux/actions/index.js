@@ -143,11 +143,7 @@ export const createUser = (data) => {
     }
   };
 };
-<<<<<<< HEAD
-export const createStore = (id, data) => {
-=======
 export const createStore = (id, data, token) => {
->>>>>>> upstream/development
   return async (dispatch) => {
     const res = await axios.put(
       `/user/${id}`,
