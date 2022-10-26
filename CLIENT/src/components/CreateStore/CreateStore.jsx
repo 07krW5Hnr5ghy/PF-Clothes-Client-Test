@@ -3,7 +3,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createStore } from "../../redux/actions";
 import { Formik } from "formik";
-import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Styles from "./CreateStore.module.css";
 import axios from "axios";
