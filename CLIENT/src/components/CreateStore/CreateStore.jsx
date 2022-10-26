@@ -46,7 +46,6 @@ const CreateStore = () => {
     })();
   }, [info]);
 
-  const id = us?.id;
   return (
     <div className={Styles.container1}>
       <h1 className={Styles.subtitle}>Crear una tienda</h1>
