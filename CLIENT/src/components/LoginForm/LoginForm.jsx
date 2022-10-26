@@ -53,7 +53,8 @@ const LoginForm = () => {
   /* loging with google */
   const redirectToGoogleSSO = async () => {
     const googleLoginURL = `${process.env.REACT_APP_API || "http://localhost:3001"}/login/google`;
-    window.open(googleLoginURL, "_self");
+    //window.open(googleLoginURL, "_self");
+    window.location.href = googleLoginURL;
     fetchAuthUser();
   };
 
