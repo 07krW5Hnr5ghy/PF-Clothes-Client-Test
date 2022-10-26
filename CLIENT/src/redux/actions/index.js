@@ -6,9 +6,9 @@ import {
   SEARCH_PRODUCT,
   GET_SIZES,
   ORDER_PRODUCTS_BY_NAME,
-  ORDER_PRODUCTS_BY_SCORE,
   FILTER_PRODUCTS,
   LOGIN_USER,
+  GET_PRODUCTS_CART,
   CREATE_USER,
   CREATE_STORE,
   CREATE_PUBLICATION,
@@ -22,6 +22,8 @@ import {
   GET_REVIEWS_PRODUCT_DETAIL,
   FLUSH_ERROR,
   GET_SELLS_HISTORY,
+  GET_SELL_DETAIL,
+  CREATE_REVIEW_PRODUCT,
 } from "../action-types";
 
 export const getProducts = () => {
@@ -87,15 +89,6 @@ export const orderProductsByName = (data) => {
   };
 };
 
-/* export const orderProductsByScore = (orden) => {
-  return async function (dispatch) {
-    dispatch({
-      type: ORDER_PRODUCTS_BY_SCORE,
-      payload: orden,
-    });
-  };
-}; */
-
 export const filterProducts = (
   name,
   price,
@@ -150,9 +143,22 @@ export const createUser = (data) => {
     }
   };
 };
+<<<<<<< HEAD
 export const createStore = (id, data) => {
+=======
+export const createStore = (id, data, token) => {
+>>>>>>> upstream/development
   return async (dispatch) => {
-    const res = await axios.put(`/user/${id}`, data);
+    const res = await axios.put(
+      `/user/${id}`,
+      data,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return dispatch({
       type: CREATE_STORE,
       payload: res.data,
@@ -170,38 +176,84 @@ export const createPublication = () => {
   };
 };
 
-export const getFavorites = () => {
-  return {
-    type: GET_FAVORITES,
+export const getFavorites = (id) => {
+  return async (dispatch) => {
+    const res = await axios.get(`/user/favorites?profileID=${id}`);
+    return dispatch({
+      type: GET_FAVORITES,
+      payload: res.data,
+    });
   };
 };
 
-export const addToFavorites = (id) => {
-  return {
-    type: ADD_TO_FAVORITES,
-    payload: id,
+export const addToFavorites = (id, profileId, token) => {
+  return async (dispatch) => {
+    await axios.put(
+      `/user/favorites?productID=${id}&profileID=${profileId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return dispatch({
+      type: ADD_TO_FAVORITES,
+      payload: id,
+    });
   };
 };
 
-export const deleteFavorite = (id) => {
-  return {
-    type: DELETE_FAVORITE,
-    payload: id,
+export const deleteFavorite = (productId, profileId) => {
+  return async (dispatch) => {
+    await axios.delete(
+      `/user/favorites?productID=${productId}&profileID=${profileId}`
+    );
+    return dispatch({
+      type: DELETE_FAVORITE,
+      payload: productId,
+    });
   };
 };
 
-/* export const filterProductsByMark = (mark) => {
-    return async function (dispatch) {
-        const filteredProductsByMark = await axios.get("/productMarks" + mark)
-        dispatch({
-            type: FILTER_PRODUCTS_BY_MARK,
-            payload: filteredProductsByMark.data
-        })
-    }
-}
-*/
+export const addToCart = (id, profileId, token) => {
+  return async (dispatch) => {
+    const res = await axios.put(
+      `/user/shoppingcart?productID=${id}&profileID=${profileId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return dispatch({
+      type: ADD_TO_CART,
+      payload: res,
+    });
+  };
+};
 
-export const addToCart = (id) => ({ type: ADD_TO_CART, payload: id });
+export const getCartProducts = (id) => {
+  return async (dispatch) => {
+    const res = await axios.get(`/user/shoppingcart?profileID=${id}`);
+    return dispatch({
+      type: GET_PRODUCTS_CART,
+      payload: res.data,
+    });
+  };
+};
+export const delProductCart = (productId, profileId) => {
+  return async (dispatch) => {
+    const res = await axios.delete(
+      `/user/shoppingcart?productID=${productId}&profileID=${profileId}`
+    );
+    return dispatch({
+      type: REMOVE_ONE_FROM_CART,
+      payload: res,
+    });
+  };
+};
 
 export const delFromCart = (id, all = false) =>
   all
@@ -228,3 +280,23 @@ export const getSellsHistory = () => {
     });
   };
 };
+
+export const getSellDetail = (idSell) => {
+  return async (dispatch) => {
+    const sellDetail = await axios.get(`/sell/${idSell}`);
+    dispatch({
+      type: GET_SELL_DETAIL,
+      payload: sellDetail.data,
+    });
+  };
+};
+
+export const createReviewProduct = (id, data, token) => {
+  return async (dispatch) => {
+    const res = await axios.post(`/product/review/${id}`,data, {headers: {Authorization: `Bearer ${token}`,}});
+    dispatch({
+      type: CREATE_REVIEW_PRODUCT,
+      payload: res.data,
+    });
+  }
+}

@@ -54,6 +54,21 @@
   background-color: #ffffff;
   margin-top: 15px;
 }
+.inputFile {
+  width: 300px;
+  height: 50px;
+  border: 1px solid #dfdfdf;
+  border-radius: 6px;
+  color: #110826;
+  line-height: 17px;
+  padding: 11px 40px 11px 12px;
+  outline: 20px;
+  font-size: 20px;
+  box-shadow: none;
+  text-align: end;
+  background-color: #ffffff;
+  margin-top: 15px;
+}
 
 .error {
   color: red;

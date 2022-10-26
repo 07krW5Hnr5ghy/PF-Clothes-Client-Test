@@ -10,7 +10,7 @@ const Stadistics = () => {
 
     useEffect(() => {
         dispatch(getSellsHistory())
-    }, [])
+    }, [dispatch])
 
     const sellsHistory = useSelector(state => state.sellsHistory)
 

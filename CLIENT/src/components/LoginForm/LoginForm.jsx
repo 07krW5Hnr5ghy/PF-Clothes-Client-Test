@@ -5,24 +5,73 @@ import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import Styles from "./LoginForm.module.css";
 import axios from "axios";
+import GoogleButton from "react-google-button";
+import { setSession } from "../../sessionUtils/jwtSession";
+import { useLocalStorage } from "../../Utils/useLocalStorage";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const LoginForm = () => {
-  const [showPwd, setShowPwd] = useState(false);
+  const [showPwd, setShowPwd] = useLocalStorage(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = (text) =>
+    Toastify({
+      text: text,
+      duration: 2000,
+      position: "center",
+      className: Styles.toast,
+      backgroundColor: "red",
+    }).showToast();
+  const toastCorrect = (text) =>
+    Toastify({
+      text: text,
+      duration: 2000,
+      position: "center",
+      className: Styles.toast,
+      backgroundColor: "green",
+    }).showToast();
 
+  /* login with user and password */
   const handleLogin = async (userInfo) => {
     try {
       const res = await axios.post(`http://localhost:3001/login`, userInfo);
       sessionStorage.setItem("sessionData", JSON.stringify(res.data));
       if (res.data) {
-        alert("Credenciales correctas");
-        navigate("/home");
+        toastCorrect("Credenciales correctas");
+        setTimeout(() => {
+          navigate("/home");
+          window.location.reload();
+        }, 1000);
       }
     } catch (err) {
       console.log("incorrect");
-      alert("Credenciales incorrectas");
+      toast("Credenciales incorrectas");
     }
+  };
+
+  /* loging with google */
+  const redirectToGoogleSSO = async () => {
+    const googleLoginURL = `http://localhost:3001/login/google`;
+    window.open(googleLoginURL, "_self");
+    fetchAuthUser();
+  };
+
+  const fetchAuthUser = async () => {
+    await axios
+      .get(`http://localhost:3001/auth/user`, { withCredentials: true })
+      .then(
+        (res) => {
+          if (res.data) {
+            console.log(res.data);
+            setSession(res.data);
+          }
+        },
+        (err) => {
+          console.log("no google user data");
+          console.log(err);
+        }
+      );
   };
 
   return (
@@ -61,10 +110,7 @@ const LoginForm = () => {
             handleBlur,
           }) => (
             <form className={Styles.formulario} onSubmit={handleSubmit}>
-              <div
-                className={Styles.eye2}
-                onClick={() => setShowPwd(!showPwd)}
-              >
+              <div className={Styles.eye2} onClick={() => setShowPwd(!showPwd)}>
                 {showPwd ? (
                   <svg
                     className={Styles.pwdicon}
@@ -161,6 +207,7 @@ const LoginForm = () => {
             </form>
           )}
         </Formik>
+        <GoogleButton onClick={redirectToGoogleSSO} />
         <p className={Styles.LoginFormsFooter}>
           No tiene cuenta?{" "}
           <Link className={Styles.register} to="/register">

@@ -39,37 +39,3 @@ html {
 *:after {
   box-sizing: border-box;
 }
-
-
-
-h1 {
-  font-size: 3.2rem;
-}
-
-a {
-  font-size: 1.9rem;
-}
-
-label {
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: 520;
-  margin: 0px 0px 0px 8px;
-  color: var(--main);
-}
-
-h1,h2,p {
-  text-align: center;
-  margin: 1.5rem;
-  font-size: 24px;
-}
-
-img {
-  width: 38px;
-  height: 5rem;
-  margin: 1rem -2px;
-}
-
-p a {
-  font-size: 18px;
-}

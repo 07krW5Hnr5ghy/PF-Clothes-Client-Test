@@ -159,8 +159,8 @@
 }
 
 .eye2 {
-  margin-left: 31%;
-  margin-top: 6.2%;
+  margin-left: 26%;
+  margin-top: 5.2%;
   height: 24px;
   width: 26px;
   cursor: pointer;
@@ -175,4 +175,9 @@
 .register {
   color: var(--verde);
   text-decoration: underline;
+}
+
+.toast {
+  font-size: large;
+  border-radius: 10px;
 }

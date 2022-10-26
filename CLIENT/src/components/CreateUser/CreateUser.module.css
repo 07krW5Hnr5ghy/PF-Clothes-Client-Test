@@ -88,6 +88,7 @@
   font-size: 20px;
   font-weight: 350;
   margin-top: 15px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
 
@@ -108,3 +109,8 @@
 .lognin {
   color: var(--verde);
 }
+.toast {
+  font-size: large;
+  border-radius: 10px;
+}
+

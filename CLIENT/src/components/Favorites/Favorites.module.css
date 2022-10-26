@@ -1,0 +1,15 @@
+.containerFavorites {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  /*  overflow-y: scroll; */
+  margin-top: 90px;
+  background-color: #c4c4c4a9;
+}
+.textFav {
+  width: 100%;
+  color: #31b189;
+  font-size: xx-large;
+  background-color: #c4c4c4a9;
+}

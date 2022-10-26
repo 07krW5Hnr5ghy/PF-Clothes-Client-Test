@@ -3,15 +3,55 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createStore } from "../../redux/actions";
 import { Formik } from "formik";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Styles from "./CreateStore.module.css";
+<<<<<<< HEAD
 const { getSession } = require("../../utils/getSession");
+=======
+import axios from "axios";
+import { getSession } from "../../sessionUtils/jwtSession";
+>>>>>>> upstream/development
 
 const CreateStore = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [info, setInfo] = useState("");
   const [us, setUs] = useState({});
+<<<<<<< HEAD
+=======
+
+  const url = "http://localhost:3001/user/get";
+  useEffect(() => {
+    (async () => {
+      if (!info) {
+        const data = await getSession();
+        setInfo(data);
+      }
+
+      if (info) {
+        console.log("info before request", info);
+        await axios
+          .post(
+            url,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${info.token}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setUs(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    })();
+  }, [info]);
+>>>>>>> upstream/development
 
   const url = "http://localhost:3001/user/get";
   useEffect(() => {
@@ -71,7 +111,11 @@ const CreateStore = () => {
           };
           console.log(a);
 
+<<<<<<< HEAD
           dispatch(createStore(id, a))
+=======
+          dispatch(createStore(us.id, a))
+>>>>>>> upstream/development
             .then(function (res) {
               console.log(res);
               alert("Exitoso");
@@ -98,7 +142,7 @@ const CreateStore = () => {
               <div className={Styles.column}>
                 <input
                   type="text"
-                  id="username"
+                  id="storeName"
                   placeholder="Nombre de la Tienda"
                   name="storeName"
                   className={Styles.form1}
@@ -112,7 +156,7 @@ const CreateStore = () => {
 
                 <input
                   type="text"
-                  id="name"
+                  id="location"
                   placeholder="Localidad"
                   name="location"
                   className={Styles.form1}
@@ -122,12 +166,12 @@ const CreateStore = () => {
                   required
                   autoComplete="off"
                 />
-
+                <label>Foto de perfil</label>
                 <input
                   type="file"
                   id="profilePicture"
                   name="profilePicture"
-                  className={Styles.form1}
+                  className={Styles.inputFile}
                   value={values.profilePicture}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -135,12 +179,14 @@ const CreateStore = () => {
                   required
                   autoComplete="off"
                 />
-
+                <>
+                  <label>Banner</label>
+                </>
                 <input
                   type="file"
                   id="banner"
                   name="banner"
-                  className={Styles.form1}
+                  className={Styles.inputFile}
                   value={values.banner}
                   onChange={handleChange}
                   onBlur={handleBlur}

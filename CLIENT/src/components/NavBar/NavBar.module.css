@@ -22,7 +22,25 @@
 }
 
 .CartIcon {
-  margin-top: 0px;
+  margin-top: 12px;
+  margin-right: -60px;
+  padding-left: 6px;
+  display: flex;
+
+}
+.ProfileFav{
+  margin-top:18px;
+  margin-right: -20px;
+  padding-left: 4px;
+  display: flex;
+  margin-right: 40px;
+ 
+}
+
+.FavIcon{
+  display: flex;
+  /* margin-top: 15px; */
+  padding-left: 8px;
 }
 
 .NavbarHomeFormsButtonsContainer {
@@ -46,6 +64,19 @@
   text-align: center;
   transition: all 0.2s ease-in;
 }
+.NavbarHomeButtons2 {
+  display: flex;
+  margin-top: 10px;
+  padding: 0px 10px ;
+  border: 1px solid #ffe3b3;
+  border-radius: 10px;
+  font-size: 10px;
+  color: black;
+  z-index: 1;
+  background-color: #ffe3b3;
+  text-align: center;
+  transition: all 0.2s ease-in;
+}
 
 .NavbarHomeButtons:hover {
   color: #31b189;
@@ -53,4 +84,9 @@
 }
 .NavBarText {
   margin-top: -30px;
+}
+
+.toast {
+  font-size: large;
+  border-radius: 10px;
 }

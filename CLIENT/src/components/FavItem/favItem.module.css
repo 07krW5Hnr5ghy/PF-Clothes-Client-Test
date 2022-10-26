@@ -1,0 +1,15 @@
+
+
+.FavItem{
+   margin: auto;
+   padding: 15px;
+   flex-direction: column;
+}
+
+.buttonDeleteFav{
+    display: flex;
+    margin-top: -60px;
+    margin-left: 16px;
+    background-color: transparent;
+    border: none;
+}

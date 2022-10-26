@@ -1,13 +1,21 @@
 import { useDispatch } from "react-redux";
 import { createUser } from "../../redux/actions";
 import { Formik } from "formik";
-
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import Styles from "./CreateUser.module.css";
 
 const CreateUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = (text) => Toastify({
+    text: text,
+    duration: 2000,
+    position: "center",
+    className: Styles.toast,
+    backgroundColor: "#32CD32"
+    }).showToast();
 
   return (
     <div className={Styles.container1}>
@@ -77,7 +85,7 @@ const CreateUser = () => {
           dispatch(createUser(a))
             .then(function (res) {
               console.log(res);
-              alert("Redireccionando..");
+              toast("Usuario creado con éxito");
             })
             .catch(function (res) {
               console.log(res);
